@@ -1,24 +1,35 @@
 package quan.serverThreadEnd;
 
+import java.util.StringJoiner;
+
 public class ServerProtocol {
 	private String string;
-	//字符串前四位为功能键
+	//字符串前四位为指令字符串
 	public int menu() {
 		int i = 0;
 		String s = string.substring(0,4);
 		switch(s) {
-		case "*al*":
-			i = 1;//群发menu为1
+		case "*al*"://群发menu为1
+			i = 1;
 			break;
-		case "*11*":
-			i = 2;//单发
+		case "*11*"://单发为2+名字+"**"+消息
+			i = 2;
 			break;
-		case "*ff*":
-			i = 3;//文件
+		case "*ff*"://文件为3
+			i = 3;
 			break;
-		case "*ou*":
+		case "*sp*"://显示当在线人数为4
 			i = 4;
-			break;//退出
+			break;
+		case "*sn*"://显示当前上线的id为5
+			i = 5;
+			break;
+		case "*ou*"://退出为6
+			i = 6;
+			break;
+		case "*na*"://起名字
+			i = 7;
+			break;
 		default:
 			return 0;
 		}
@@ -27,17 +38,19 @@ public class ServerProtocol {
 	
 	//返回消息内容字符串
 	public String getString() {
-		String s = string.substring(8);
+		String s = string.substring(4);
 		return s;
 	}
 	
-	//返回id
-	public int getId() {
-		String s = string.substring(4,8);
-		return Integer.parseInt(s);
-	}
+//	//返回id
+//	public int getId() {
+//		String s = string.substring(4,8);
+//		return Integer.parseInt(s);
+//	}
 	
 	public ServerProtocol(String string) {
-		this.string = string;
+		String str = string.trim();//减去字符串前后空格
+		this.string = str;
 	}
+
 }
